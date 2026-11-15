@@ -1,0 +1,14 @@
+legal_compliance_rag/
+├── app.py                     # Streamlit frontend with citation viewer
+├── config.py                  # System hyperparameters and configuration
+├── ingestion/
+│   ├── __init__.py
+│   ├── chunking.py            # Hierarchical & legal clause-aware splitting
+│   └── indexer.py             # ChromaDB + BM25 + DocStore orchestration
+├── pipeline/
+│   ├── __init__.py
+│   ├── query_expansion.py     # Legal term query rewriting
+│   ├── hybrid_retriever.py    # Dense + Sparse + Cross-Encoder reranker
+│   └── generator.py           # Guardrailed generation with citations
+├── requirements.txt
+└── sample_docs/               # Folder for test contracts and policies

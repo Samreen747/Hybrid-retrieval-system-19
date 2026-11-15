@@ -1,0 +1,37 @@
+[ Legal Document (PDF/Docx) ]
+          │
+          ▼
+[ Document Ingestion Pipeline ]
+  ├─ Parent Chunks (1500-2000 tokens): Retain complete legal clauses & context
+  └─ Child Chunks  (300-400 tokens): Dense vector indexing for fine-grained retrieval
+          │
+          ├────────────────────────┬────────────────────────┐
+          ▼                        ▼                        ▼
+[ ChromaDB (Dense) ]      [ BM25 (Sparse) ]       [ DocStore (Full Parent) ]
+  (Embeddings: BGE/OpenAI)  (Exact Legal Jargon)    (Clause Context Engine)
+
+────────────────────────────── RUNTIME INFERENCE ──────────────────────────────
+
+[ User Query (Ambiguous Legal Prompt) ]
+          │
+          ▼
+[ Query Rewriter & Legal Decomposer ]
+  (Resolves pronouns, expands definitions, injects statutory synonyms)
+          │
+     ┌────┴────────────────────────┐
+     ▼                             ▼
+[ Dense Vector Search ]    [ BM25 Keyword Search ]
+     └────┬────────────────────────┘
+          ▼
+[ Reciprocal Rank Fusion (RRF) ] ──> Fetch Parent Documents
+          │
+          ▼
+[ Cross-Encoder Re-ranker (BAAI/bge-reranker-large) ]
+  (Scores Top-K clauses for strict semantic relevance)
+          │
+          ▼
+[ Grounded Generator (LLM with Legal Guardrails) ]
+  (Zero-hallucination prompt, mandatory clause-level citations)
+          │
+          ▼
+[ Verified Answer + Source Citation Drawer ]
